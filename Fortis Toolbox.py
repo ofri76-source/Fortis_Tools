@@ -4160,6 +4160,14 @@ Network Segmentation section with auto IP calculation"""
                 except: pass
             elif keycode == 86:  # V
                 try:
+                    widget_class = ""
+                    try:
+                        widget_class = widget.winfo_class()
+                    except Exception:
+                        pass
+                    # Standard text-based widgets already handle paste natively.
+                    if isinstance(widget, tk.Text) or widget_class in {"Entry", "TEntry", "TCombobox", "Combobox", "Spinbox", "TSpinbox"}:
+                        return
                     clipboard_text = self.root.clipboard_get()
                     if isinstance(widget, tk.Text):
                         if widget.tag_ranges(tk.SEL):
